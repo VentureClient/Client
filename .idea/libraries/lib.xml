@@ -4,6 +4,7 @@
       <root url="file://$PROJECT_DIR$/lib" />
       <root url="file://$PROJECT_DIR$/lib/minecraft" />
       <root url="file://$PROJECT_DIR$/lib/ultralight" />
+      <root url="file://$PROJECT_DIR$/lib/other" />
     </CLASSES>
     <JAVADOC />
     <NATIVE>
@@ -11,6 +12,7 @@
     </NATIVE>
     <SOURCES />
     <jarDirectory url="file://$PROJECT_DIR$/lib/minecraft" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/lib/other" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/lib/ultralight" recursive="false" />
   </library>
 </component>

@@ -43,6 +43,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
+import social.godmode.venture.event.events.EventRender2D;
 
 public class GuiIngame extends Gui
 {
@@ -136,6 +137,9 @@ public class GuiIngame extends Gui
         {
             this.renderTooltip(scaledresolution, partialTicks);
         }
+
+        EventRender2D render2D = new EventRender2D(partialTicks);
+        render2D.call();
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);

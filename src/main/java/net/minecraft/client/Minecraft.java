@@ -184,6 +184,10 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.OpenGLException;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
+import social.godmode.venture.Venture;
+import social.godmode.venture.event.events.EventKey;
+import social.godmode.venture.event.events.EventTick;
+import social.godmode.venture.gui.DraggableGUI;
 
 public class Minecraft implements IThreadListener, IPlayerUsage
 {
@@ -541,8 +545,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     private void createDisplay() throws LWJGLException
     {
+        Venture venture = Venture.INSTANCE;
         Display.setResizable(true);
-        Display.setTitle("Minecraft 1.8.9");
+        Display.setTitle(Venture.NAME + " " + Venture.VERSION);
 
         try
         {
@@ -1560,6 +1565,8 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     private void resize(int width, int height)
     {
+        DraggableGUI.resize(displayWidth, displayHeight, Math.max(1, width), Math.max(1, height));
+
         this.displayWidth = Math.max(1, width);
         this.displayHeight = Math.max(1, height);
 
@@ -1568,6 +1575,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
             ScaledResolution scaledresolution = new ScaledResolution(this);
             this.currentScreen.onResize(this, scaledresolution.getScaledWidth(), scaledresolution.getScaledHeight());
         }
+
 
         this.loadingScreen = new LoadingScreenRenderer(this);
         this.updateFramebufferSize();
@@ -1590,6 +1598,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     public void runTick() throws IOException
     {
+        EventTick event = new EventTick();
+        event.call();
+
         if (this.rightClickDelayTimer > 0)
         {
             --this.rightClickDelayTimer;
@@ -1793,6 +1804,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                     }
                     else
                     {
+                        EventKey eventKey = new EventKey(k);
+                        eventKey.call();
+
                         if (k == 1)
                         {
                             this.displayInGameMenu();

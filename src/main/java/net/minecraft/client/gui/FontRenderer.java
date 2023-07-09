@@ -33,7 +33,7 @@ public class FontRenderer implements IResourceManagerReloadListener
 {
     private static final ResourceLocation[] unicodePageLocations = new ResourceLocation[256];
     private final int[] charWidth = new int[256];
-    public int FONT_HEIGHT = 9;
+    public static int FONT_HEIGHT = 9;
     public Random fontRandom = new Random();
     private byte[] glyphWidth = new byte[65536];
     private int[] colorCode = new int[32];
@@ -313,6 +313,11 @@ public class FontRenderer implements IResourceManagerReloadListener
         return this.drawString(text, x, y, color, true);
     }
 
+    public int drawStringWithShadow(String text, double x, double y, int color)
+    {
+        return this.drawString(text, x, y, color, true);
+    }
+
     public int drawString(String text, int x, int y, int color)
     {
         return this.drawString(text, (float)x, (float)y, color, false);
@@ -348,6 +353,11 @@ public class FontRenderer implements IResourceManagerReloadListener
         }
 
         return i;
+    }
+
+    public int drawString(String text, double x, double y, int color, boolean dropShadow)
+    {
+        return drawString(text, (float)x, (float)y, color, dropShadow);
     }
 
     private String bidiReorder(String text)
