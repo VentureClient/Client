@@ -3,12 +3,14 @@ package social.godmode.venture;
 import lombok.Getter;
 import lombok.NonNull;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import org.lwjgl.input.Keyboard;
 import social.godmode.venture.event.data.EventInfo;
 import social.godmode.venture.event.events.EventKey;
+import social.godmode.venture.event.events.EventRender2D;
 import social.godmode.venture.event.manager.EventManager;
-import social.godmode.venture.gui.DraggableGUI;
-import social.godmode.venture.mod.Mod;
+import social.godmode.venture.hud.HUDManager;
 import social.godmode.venture.mod.manager.ModManager;
 
 @Getter
@@ -29,7 +31,15 @@ public enum Venture {
         int key = e.getKey();
 
         if(key == Keyboard.KEY_RCONTROL) {
-            mc.displayGuiScreen(new DraggableGUI());
+            HUDManager.openConfigScreen();
         }
     }
+
+    @EventInfo
+    public void onRender(EventRender2D e) {
+        if((mc.currentScreen == null || mc.currentScreen instanceof GuiContainer || mc.currentScreen instanceof GuiChat) && !mc.gameSettings.showDebugInfo) {
+            HUDManager.getRegisteredRenderers().forEach(HUDManager::callRenderer);
+        }
+    }
+
 }

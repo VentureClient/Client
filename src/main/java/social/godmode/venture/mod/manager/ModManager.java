@@ -3,7 +3,7 @@ package social.godmode.venture.mod.manager;
 import lombok.Getter;
 import social.godmode.venture.mod.Mod;
 import social.godmode.venture.mod.ModDraggable;
-import social.godmode.venture.util.ClassPathUtil;
+import social.godmode.venture.util.other.ClassPathUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;

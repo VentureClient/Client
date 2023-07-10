@@ -187,6 +187,7 @@ import org.lwjgl.util.glu.GLU;
 import social.godmode.venture.Venture;
 import social.godmode.venture.event.events.EventKey;
 import social.godmode.venture.event.events.EventTick;
+import social.godmode.venture.event.events.EventWindowResized;
 import social.godmode.venture.gui.DraggableGUI;
 
 public class Minecraft implements IThreadListener, IPlayerUsage
@@ -1125,6 +1126,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
             if (this.displayWidth != i || this.displayHeight != j)
             {
+                EventWindowResized event = new EventWindowResized(this.displayWidth, this.displayHeight);
+                event.call();
+
                 if (this.displayWidth <= 0)
                 {
                     this.displayWidth = 1;
@@ -1517,6 +1521,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 this.displayWidth = Display.getDisplayMode().getWidth();
                 this.displayHeight = Display.getDisplayMode().getHeight();
 
+                EventWindowResized event = new EventWindowResized(this.displayWidth, this.displayHeight);
+                event.call();
+
                 if (this.displayWidth <= 0)
                 {
                     this.displayWidth = 1;
@@ -1532,6 +1539,9 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                 Display.setDisplayMode(new DisplayMode(this.tempDisplayWidth, this.tempDisplayHeight));
                 this.displayWidth = this.tempDisplayWidth;
                 this.displayHeight = this.tempDisplayHeight;
+
+                EventWindowResized event = new EventWindowResized(this.displayWidth, this.displayHeight);
+                event.call();
 
                 if (this.displayWidth <= 0)
                 {
@@ -1565,8 +1575,6 @@ public class Minecraft implements IThreadListener, IPlayerUsage
 
     private void resize(int width, int height)
     {
-        DraggableGUI.resize(displayWidth, displayHeight, Math.max(1, width), Math.max(1, height));
-
         this.displayWidth = Math.max(1, width);
         this.displayHeight = Math.max(1, height);
 

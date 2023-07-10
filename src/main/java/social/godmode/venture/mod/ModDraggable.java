@@ -5,15 +5,20 @@ import lombok.NonNull;
 import lombok.Setter;
 import social.godmode.venture.event.data.EventInfo;
 import social.godmode.venture.event.events.EventRender2D;
+import social.godmode.venture.hud.HUDConfigScreen;
+import social.godmode.venture.hud.HUDManager;
+import social.godmode.venture.hud.IRenderer;
 import social.godmode.venture.mod.data.DraggableInfo;
-import social.godmode.venture.util.Chat;
+import social.godmode.venture.util.minecraft.position.ScreenPosition;
+import social.godmode.venture.util.minecraft.position.Vector2D;
 
 @Getter @Setter
-public abstract class ModDraggable extends Mod {
+public abstract class ModDraggable extends Mod implements IRenderer {
 
     private final DraggableInfo draggableInfo = getClass().getAnnotation(DraggableInfo.class);
 
-    protected double x, y, dragX, dragY, width, height;
+    protected ScreenPosition position;
+    protected double width, height;
 
     public ModDraggable() {
         super();
@@ -22,18 +27,38 @@ public abstract class ModDraggable extends Mod {
             throw new RuntimeException("ModDraggable must have DraggableInfo annotation");
         }
 
-        this.x = draggableInfo.x();
-        this.y = draggableInfo.y();
+        this.position = new ScreenPosition(draggableInfo.x(), draggableInfo.y());
         this.width = draggableInfo.width();
         this.height = draggableInfo.height();
     }
 
-    public void setPosition(double x, double y) {
-        this.x = x;
-        this.y = y;
+    @Override
+    public void onEnable() {
+        super.onEnable();
+        HUDManager.register(this);
     }
 
-    public abstract void render(@NonNull EventRender2D e);
-    @EventInfo public void onRender(@NonNull EventRender2D e) { render(e); }
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        HUDManager.unregister(this);
+    }
 
+    @Override
+    public void render(ScreenPosition pos) {
+        this.position = pos;
+        onRender(this.position);
+    }
+
+    /* todo */
+    @Override public void save(ScreenPosition pos) {}
+    @Override public ScreenPosition load() { return position; }
+    @Override public int getWidth() { return (int) width; }
+    @Override public int getHeight() { return (int) height; }
+
+    public abstract void onRender(@NonNull ScreenPosition pos);
+    @Override public void renderDummy(ScreenPosition pos) { IRenderer.super.renderDummy(pos); }
+
+    public double getX() { return position.getRelativeX(); }
+    public double getY() { return position.getRelativeY(); }
 }

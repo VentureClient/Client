@@ -1,4 +1,4 @@
-package social.godmode.venture.util;
+package social.godmode.venture.util.other;
 
 import lombok.experimental.UtilityClass;
 import net.minecraft.client.gui.Gui;
