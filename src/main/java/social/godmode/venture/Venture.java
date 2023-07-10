@@ -12,6 +12,7 @@ import social.godmode.venture.event.events.EventRender2D;
 import social.godmode.venture.event.manager.EventManager;
 import social.godmode.venture.hud.HUDManager;
 import social.godmode.venture.mod.manager.ModManager;
+import social.godmode.venture.mod.manager.SettingManager;
 
 @Getter
 public enum Venture {
@@ -23,6 +24,8 @@ public enum Venture {
 
     Venture() {
         ModManager.registerAllMods();
+        SettingManager.registerAllSettings();
+
         EventManager.register(this);
     }
 

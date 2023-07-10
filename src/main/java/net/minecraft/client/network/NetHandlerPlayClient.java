@@ -211,6 +211,7 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import social.godmode.venture.event.events.EventChatMessageReceived;
 
 public class NetHandlerPlayClient implements INetHandlerPlayClient
 {
@@ -746,6 +747,11 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
 
     public void handleChat(S02PacketChat packetIn)
     {
+        EventChatMessageReceived event = new EventChatMessageReceived(packetIn.getChatComponent());
+        event.call();
+
+        if(event.cancelled) return;
+
         PacketThreadUtil.checkThreadAndEnqueue(packetIn, this, this.gameController);
 
         if (packetIn.getType() == 2)

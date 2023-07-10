@@ -31,6 +31,9 @@ import net.optifine.shaders.Shaders;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
+import social.godmode.venture.mod.manager.ModManager;
+import social.godmode.venture.mod.mods.NameTags;
+import social.godmode.venture.util.minecraft.Chat;
 
 public abstract class RendererLivingEntity<T extends EntityLivingBase> extends Render<T>
 {
@@ -663,6 +666,8 @@ public abstract class RendererLivingEntity<T extends EntityLivingBase> extends R
     protected boolean canRenderName(T entity)
     {
         EntityPlayerSP entityplayersp = Minecraft.getMinecraft().thePlayer;
+
+        if(ModManager.getMod(NameTags.class).isEnabled() && entity instanceof EntityPlayer && entity == entityplayersp) return true;
 
         if (entity instanceof EntityPlayer && entity != entityplayersp)
         {

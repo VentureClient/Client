@@ -6,6 +6,10 @@ import net.minecraft.client.Minecraft;
 import social.godmode.venture.Venture;
 import social.godmode.venture.event.manager.EventManager;
 import social.godmode.venture.mod.data.ModInfo;
+import social.godmode.venture.mod.setting.Setting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 public class Mod {
@@ -13,6 +17,7 @@ public class Mod {
     private final ModInfo info = getClass().getAnnotation(ModInfo.class);
 
     protected Minecraft mc = Minecraft.getMinecraft();
+    protected List<Setting<?>> settings = new ArrayList<>();
 
     private final String name, description;
     private boolean enabled;

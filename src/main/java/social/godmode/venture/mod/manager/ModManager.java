@@ -29,6 +29,8 @@ public class ModManager {
                     e.printStackTrace();
                 }
             });
+
+            getMods().forEach((mod -> mod.setEnabled(true)));
         } catch (Exception e) {
             e.printStackTrace();
         }

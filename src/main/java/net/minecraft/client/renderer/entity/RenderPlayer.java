@@ -17,6 +17,7 @@ import net.minecraft.scoreboard.Score;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.ResourceLocation;
+import social.godmode.venture.util.minecraft.Chat;
 
 public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 {
@@ -57,6 +58,8 @@ public class RenderPlayer extends RendererLivingEntity<AbstractClientPlayer>
 
             this.setModelVisibilities(entity);
             super.doRender(entity, x, d0, z, entityYaw, partialTicks);
+
+            super.renderName(entity, x, d0, z);
         }
     }
 

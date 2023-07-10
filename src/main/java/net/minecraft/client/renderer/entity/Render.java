@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 import net.optifine.entity.model.IEntityRenderer;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
+import social.godmode.venture.util.minecraft.Chat;
 
 public abstract class Render<T extends Entity> implements IEntityRenderer
 {

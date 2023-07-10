@@ -188,7 +188,6 @@ import social.godmode.venture.Venture;
 import social.godmode.venture.event.events.EventKey;
 import social.godmode.venture.event.events.EventTick;
 import social.godmode.venture.event.events.EventWindowResized;
-import social.godmode.venture.gui.DraggableGUI;
 
 public class Minecraft implements IThreadListener, IPlayerUsage
 {
@@ -222,7 +221,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
     private Entity renderViewEntity;
     public Entity pointedEntity;
     public EffectRenderer effectRenderer;
-    private final Session session;
+    public Session session;
     private boolean isGamePaused;
     public FontRenderer fontRendererObj;
     public FontRenderer standardGalacticFontRenderer;
