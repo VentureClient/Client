@@ -10,6 +10,7 @@ import social.godmode.venture.event.data.EventInfo;
 import social.godmode.venture.event.events.EventKey;
 import social.godmode.venture.event.events.EventRender2D;
 import social.godmode.venture.event.manager.EventManager;
+import social.godmode.venture.gui.ClickGui;
 import social.godmode.venture.hud.HUDManager;
 import social.godmode.venture.mod.manager.ModManager;
 import social.godmode.venture.mod.manager.SettingManager;
@@ -33,9 +34,8 @@ public enum Venture {
     public void onKey(@NonNull EventKey e) {
         int key = e.getKey();
 
-        if(key == Keyboard.KEY_RCONTROL) {
-            HUDManager.openConfigScreen();
-        }
+        if(key == Keyboard.KEY_RCONTROL) HUDManager.openConfigScreen();
+        else if(key == Keyboard.KEY_RSHIFT) ClickGui.display();
     }
 
     @EventInfo

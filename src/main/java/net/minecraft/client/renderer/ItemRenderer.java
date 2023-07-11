@@ -31,6 +31,8 @@ import net.optifine.DynamicLights;
 import net.optifine.reflect.Reflector;
 import net.optifine.shaders.Shaders;
 import org.lwjgl.opengl.GL11;
+import social.godmode.venture.mod.manager.ModManager;
+import social.godmode.venture.mod.mods.Animations;
 
 public class ItemRenderer
 {
@@ -334,22 +336,22 @@ public class ItemRenderer
                     switch (enumaction)
                     {
                         case NONE:
-                            this.transformFirstPersonItem(f, 0.0F);
+                            this.transformFirstPersonItem(f, ModManager.getMod(Animations.class).isEnabled() ? f1 : 0.0F);
                             break;
 
                         case EAT:
                         case DRINK:
                             this.performDrinking(abstractclientplayer, partialTicks);
-                            this.transformFirstPersonItem(f, 0.0F);
+                            this.transformFirstPersonItem(f,  ModManager.getMod(Animations.class).isEnabled() ? f1 : 0.0F);
                             break;
 
                         case BLOCK:
-                            this.transformFirstPersonItem(f, 0.0F);
+                            this.transformFirstPersonItem(f,  ModManager.getMod(Animations.class).isEnabled() ? f1 : 0.0F);
                             this.doBlockTransformations();
                             break;
 
                         case BOW:
-                            this.transformFirstPersonItem(f, 0.0F);
+                            this.transformFirstPersonItem(f,  ModManager.getMod(Animations.class).isEnabled() ? f1 : 0.0F);
                             this.doBowTransformations(partialTicks, abstractclientplayer);
                     }
                 }

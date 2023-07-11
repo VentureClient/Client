@@ -3,14 +3,16 @@ package social.godmode.venture.mod.mods;
 import lombok.NonNull;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.potion.Potion;
+import org.lwjgl.input.Keyboard;
 import social.godmode.venture.event.data.EventInfo;
 import social.godmode.venture.event.events.EventTick;
 import social.godmode.venture.mod.ModDraggable;
+import social.godmode.venture.mod.data.Category;
 import social.godmode.venture.mod.data.DraggableInfo;
 import social.godmode.venture.mod.data.ModInfo;
 import social.godmode.venture.util.minecraft.position.ScreenPosition;
 
-@ModInfo(name = "ToggleSprint", description = "Toggles Sprinting")
+@ModInfo(name = "ToggleSprint", category = Category.MECHANICS, description = "Toggles Sprinting")
 @DraggableInfo(height = 9)
 public class ToggleSprint extends ModDraggable {
 
@@ -33,24 +35,15 @@ public class ToggleSprint extends ModDraggable {
 
     @EventInfo
     public void onTick(EventTick e) {
-        if(mc.gameSettings.keyBindSprint.isKeyDown()) text = "[Sprinting (Vanilla)]";
+        boolean held = Keyboard.isKeyDown(mc.gameSettings.keyBindSprint.getKeyCode());
+
+        if(mc.thePlayer.isSneaking()) text = "[Sneaking (Vanilla)]";
+        else if(held) text = "[Sprinting (Vanilla)]";
         else text = "[Sprinting (Toggled)]";
 
-        if (shouldSprint()) {
-            mc.thePlayer.setSprinting(true);
+        if(mc.thePlayer.moveForward > 0 && !mc.thePlayer.isSneaking()) {
+            mc.gameSettings.keyBindSprint.pressed = true;
         }
-
-    }
-
-    private boolean shouldSprint() {
-        boolean movingForward = mc.thePlayer.movementInput.moveForward > 0;
-        boolean sprintDisabledEffects = mc.thePlayer.isPotionActive(Potion.moveSlowdown)
-                || mc.thePlayer.isPotionActive(Potion.digSlowdown)
-                || mc.thePlayer.isPotionActive(Potion.blindness)
-                || mc.thePlayer.isSprinting() && (mc.thePlayer.isCollidedHorizontally);
-        boolean isHungry = mc.thePlayer.getFoodStats().getFoodLevel() < 6.0F;
-
-        return movingForward && !sprintDisabledEffects && !mc.thePlayer.isSneaking() && !isHungry;
     }
 
 }

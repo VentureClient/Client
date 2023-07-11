@@ -4,12 +4,13 @@ import social.godmode.venture.event.data.EventInfo;
 import social.godmode.venture.event.events.EventChatMessageReceived;
 import social.godmode.venture.event.events.EventTick;
 import social.godmode.venture.mod.Mod;
+import social.godmode.venture.mod.data.Category;
 import social.godmode.venture.mod.data.ModInfo;
 import social.godmode.venture.mod.setting.value.NumberValue;
 
 import java.util.Arrays;
 
-@ModInfo(name = "AutoGG", description = "Automatically says GG in the chat when you when a Hypixel game")
+@ModInfo(name = "AutoGG", category = Category.SERVER, description = "Automatically says GG in the chat when you when a Hypixel game")
 public class AutoGG extends Mod {
 
     NumberValue<Integer> delay = new NumberValue<>("Tick Delay", 2, 0, 10);
@@ -36,7 +37,7 @@ public class AutoGG extends Mod {
 
     @EventInfo
     public void onChat(EventChatMessageReceived event) {
-        if(!isOnHypixel()) return;
+        if(isNotOnHypixel()) return;
 
         String message = event.getMessage().getUnformattedText();
 
@@ -47,7 +48,7 @@ public class AutoGG extends Mod {
 
     @EventInfo
     public void onTick(EventTick e) {
-        if(!isOnHypixel()) return;
+        if(isNotOnHypixel()) return;
 
         if(currentDelay > 0) {
             currentDelay--;
@@ -56,12 +57,12 @@ public class AutoGG extends Mod {
         if(currentDelay == 0) {
             currentDelay = -1;
 
-            mc.thePlayer.sendChatMessage("gg");
+            mc.thePlayer.sendChatMessage("/ac gg");
         }
     }
 
-    public boolean isOnHypixel() {
-        return mc.getCurrentServerData() != null && mc.getCurrentServerData().serverIP.toLowerCase().contains("hypixel.net");
+    public boolean isNotOnHypixel() {
+        return mc.getCurrentServerData() == null || !mc.getCurrentServerData().serverIP.toLowerCase().contains("hypixel.net");
     }
 
 }
