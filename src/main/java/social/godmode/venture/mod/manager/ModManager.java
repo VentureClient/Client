@@ -30,7 +30,7 @@ public class ModManager {
                 }
             });
 
-            getMods().forEach((mod -> mod.setEnabled(true)));
+            mods.forEach((mod -> mod.setEnabled(true)));
         } catch (Exception e) {
             e.printStackTrace();
         }

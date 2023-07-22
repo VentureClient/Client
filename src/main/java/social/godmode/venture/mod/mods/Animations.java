@@ -15,7 +15,7 @@ public class Animations extends Mod {
 
         boolean isLookingAtBlock = mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == net.minecraft.util.MovingObjectPosition.MovingObjectType.BLOCK,
                 animationOver = !mc.thePlayer.isSwingInProgress || mc.thePlayer.swingProgressInt >= mc.thePlayer.getArmSwingAnimationEnd() / 2 || mc.thePlayer.swingProgressInt < 0,
-                rightClick = mc.gameSettings.keyBindUseItem.isKeyDown() && mc.thePlayer.isUsingItem(),
+                rightClick = mc.gameSettings.keyBindAttack.isKeyDown() && mc.thePlayer.isUsingItem(),
                 isHoldingItem = mc.thePlayer.getHeldItem() != null;
 
         if(isLookingAtBlock && rightClick && animationOver && isHoldingItem) {
